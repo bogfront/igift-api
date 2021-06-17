@@ -10,7 +10,8 @@ import {
   HttpCode,
   Request
 } from '@nestjs/common';
-import {OrdersModel, OrderStatus} from './orders.model';
+import { OrdersModel } from './orders.model';
+import { OrderStatus } from "./orders.constants";
 import { FindOrderDto } from './dto/find-order.dto';
 import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from "../auth/guards/jwt.guard";
@@ -19,10 +20,16 @@ import { JwtAuthGuard } from "../auth/guards/jwt.guard";
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
   
+  @HttpCode(200)
   @UseGuards(JwtAuthGuard)
-  @Get()
-  async getAll() {
-    return this.ordersService.find();
+  @Post()
+  async getAll(@Request() req: any, @Body() dto: FindOrderDto) {
+    const user: string = req.user;
+    
+    return this.ordersService.find({
+      ...dto,
+      user
+    });
   }
 
   @UseGuards(JwtAuthGuard)

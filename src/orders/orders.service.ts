@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {OrdersModel} from './orders.model';
 import {ModelType, DocumentType} from '@typegoose/typegoose/lib/types';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { FindUserOrdersDto } from './dto/find-user-orders.dto';
 import { InjectModel } from 'nestjs-typegoose';
 
 @Injectable()
@@ -16,8 +17,8 @@ export class OrdersService {
     return this.ordersModel.create(dto);
   }
   
-  async find() {
-    return this.ordersModel.find().exec();
+  async find(dto: FindUserOrdersDto) {
+    return this.ordersModel.find(dto).exec();
   }
   
   async findById(id: string) {

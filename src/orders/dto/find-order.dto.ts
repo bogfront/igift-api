@@ -1,4 +1,5 @@
+import {OrderStatus} from "../orders.constants";
+
 export class FindOrderDto {
-  order: string;
-  limit: number;
+  status: OrderStatus;
 }

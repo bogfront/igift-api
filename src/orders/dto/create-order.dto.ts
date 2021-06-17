@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import {IsArray, IsNotEmpty, IsNumber, IsString} from 'class-validator';
-import { OrderStatus } from "../orders.model";
+import { OrderStatus } from "../orders.constants";
 
 class ProductDto {
   @IsString()
