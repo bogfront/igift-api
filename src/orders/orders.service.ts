@@ -27,4 +27,8 @@ export class OrdersService {
   async deleteById(id: string) {
     return this.ordersModel.findByIdAndDelete(id).exec();
   }
+  
+  async getCount() {
+    return this.ordersModel.countDocuments();
+  }
 }

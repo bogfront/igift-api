@@ -57,6 +57,9 @@ export class CreateOrderDto {
   
   @IsString()
   status: OrderStatus;
+  
+  @IsNumber()
+  number: number;
 
   @IsString()
   paymentUri: string;

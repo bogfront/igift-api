@@ -68,6 +68,9 @@ export class OrdersModel extends TimeStamps {
   
   @prop()
   status: OrderStatus;
+  
+  @prop({ unique: true })
+  number: number;
 
   @prop()
   paymentUri: string;

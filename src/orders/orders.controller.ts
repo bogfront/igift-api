@@ -30,11 +30,13 @@ export class OrdersController {
   async create(@Request() req: any, @Body() dto: OrdersModel) {
     const user: string = req.user;
     const status = OrderStatus.CREATED;
+    const number = await this.ordersService.getCount();
     
     return this.ordersService.create({
       ...dto,
       user,
-      status
+      status,
+      number
     });
   }
   
