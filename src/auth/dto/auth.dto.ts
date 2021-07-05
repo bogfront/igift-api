@@ -24,3 +24,8 @@ export class AuthDto {
   @IsString()
   password: string;
 }
+
+export class CheckEmailDto {
+  @IsEmail()
+  email: string;
+}

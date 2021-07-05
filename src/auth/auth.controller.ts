@@ -2,15 +2,14 @@ import {
   BadRequestException,
   Body,
   Controller,
-  HttpCode, Get,
-  Post, UseGuards,
-  UsePipes, Request,
+  HttpCode,
+  Post,
+  UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { ALREADY_REGISTERED_ERROR } from './auth.constants';
 import { AuthService } from './auth.service';
-import { AuthDto, RegisterDto } from './dto/auth.dto';
-import {JwtAuthGuard} from "./guards/jwt.guard";
+import { AuthDto, RegisterDto, CheckEmailDto } from './dto/auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -26,6 +25,13 @@ export class AuthController {
     }
 
     return this.authService.createUser(dto);
+  }
+  
+  @Post('check-email')
+  async checkEmail (@Body() dto: CheckEmailDto) {
+    const oldUser = await this.authService.findUser(dto.email);
+  
+    return { isFree: !oldUser }
   }
 
   @UsePipes(new ValidationPipe())

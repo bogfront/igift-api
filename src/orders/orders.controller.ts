@@ -15,6 +15,13 @@ import { OrderStatus } from "./orders.constants";
 import { FindOrderDto } from './dto/find-order.dto';
 import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from "../auth/guards/jwt.guard";
+import { ProductMetadataDto } from "./dto/product-metadata.dto";
+
+const metascraper = require('metascraper')([
+  require('metascraper-title')(),
+  require('metascraper-image')()
+])
+const got = require('got')
 
 @Controller('orders')
 export class OrdersController {
@@ -64,4 +71,12 @@ export class OrdersController {
   @HttpCode(200)
   @Post()
   async find(@Body() dto: FindOrderDto) {}
+  
+  @Post('metadata')
+  async getMetadata(@Body() dto: ProductMetadataDto) {
+    const { body: html, url } = await got(dto.url);
+    const metadata = await metascraper({ html, url });
+    
+    return metadata;
+  }
 }

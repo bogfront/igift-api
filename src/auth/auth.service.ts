@@ -23,7 +23,10 @@ export class AuthService {
       secondName: dto.secondName,
       passwordHash: await hash(dto.password, salt),
     });
-    return newUser.save();
+    
+    
+    await newUser.save();
+    return this.login(dto.email);
   }
 
   async findUser(email: string) {
