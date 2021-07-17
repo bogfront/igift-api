@@ -16,6 +16,7 @@ import { FindOrderDto } from './dto/find-order.dto';
 import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from "../auth/guards/jwt.guard";
 import { ProductMetadataDto } from "./dto/product-metadata.dto";
+import {CreateOrderDto} from "./dto/create-order.dto";
 
 const metascraper = require('metascraper')([
   require('metascraper-title')(),
@@ -41,7 +42,7 @@ export class OrdersController {
 
   @UseGuards(JwtAuthGuard)
   @Post('create')
-  async create(@Request() req: any, @Body() dto: OrdersModel) {
+  async create(@Request() req: any, @Body() dto: CreateOrderDto) {
     const user: string = req.user;
     const status = OrderStatus.CREATED;
     const number = await this.ordersService.getCount();
