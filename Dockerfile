@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:14
 WORKDIR /opt/app
 ADD package.json package.json
 RUN yarn
