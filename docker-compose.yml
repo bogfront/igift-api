@@ -1,13 +1,13 @@
 version: '3'
 services:
-  top.api:
-    image: top-api:latest
-    container_name: top-api
-    restart: always
-    ports:
-      - 8838:8838
-    volumes:
-      - ./.env:/opt/app/.env
+#  top.api:
+#    image: top-api:latest
+#    container_name: top-api
+#    restart: always
+#    ports:
+#      - 8838:8838
+#    volumes:
+#      - ./.env:/opt/app/.env
 
   mongo:
     image: mongo:4.4.4
