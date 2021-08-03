@@ -5,7 +5,7 @@ services:
     container_name: top-api
     restart: always
     ports:
-      - 8838:3000
+      - 8838:8838
     volumes:
       - ./.env:/opt/app/.env
 
