@@ -1,9 +1,8 @@
-FROM node:14-alpine
+FROM node:14
 WORKDIR /opt/app
 ADD package.json package.json
-RUN npm rebuild bcrypt --build-from-source
 RUN npm install
 ADD . .
 RUN npm run build
-RUN npm prune --production
+#RUN npm prune --production
 CMD ["node", "./dist/main.js"]
