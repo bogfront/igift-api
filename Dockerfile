@@ -1,7 +1,6 @@
 FROM node:12-alpine
 WORKDIR /opt/app
 ADD package.json package.json
-RUN npm install -g yarn
 RUN yarn
 ADD . .
 RUN yarn build
