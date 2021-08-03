@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:14-alpine
 WORKDIR /opt/app
 ADD package.json package.json
 RUN npm rebuild bcrypt --build-from-source
