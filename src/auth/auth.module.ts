@@ -1,35 +1,36 @@
-import { Module } from '@nestjs/common';
-import { TypegooseModule } from 'nestjs-typegoose';
-import { AuthController } from './auth.controller';
-import { UserModel } from './user.model';
+import * as passport from 'passport';
+import {
+  Module, MiddlewareConsumer, NestModule
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { getJWTConfig } from '../configs/jwt.config';
-import { PassportModule } from '@nestjs/passport';
-import { JwtStratagy } from './strategies/jwt.stratagy';
-import {UserService} from "./user.service";
-import {UserController} from "./user.controller";
+import { JwtStrategy } from './passport/jwt.strategy';
+import { AuthController } from './auth.controller';
+import { UserSchema } from '../users/schemas/user.schema';
+import { EmailVerificationSchema } from './schemas/emailverification.schema';
+import { ForgottenPasswordSchema } from './schemas/forgottenpassword.schema';
+import { ConsentRegistrySchema } from './schemas/consentregistry.schema';
+import { UsersService } from '../users/users.service';
+import { JWTService } from './jwt.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { LoggerMiddleware } from '../common/middlewares/logger.middleware';
 
 @Module({
-  controllers: [AuthController, UserController],
-  imports: [
-    TypegooseModule.forFeature([
-      {
-        typegooseClass: UserModel,
-        schemaOptions: {
-          collection: 'User',
-        },
-      },
-    ]),
-    ConfigModule,
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: getJWTConfig,
-    }),
-    PassportModule,
-  ],
-  providers: [AuthService, UserService, JwtStratagy],
+  imports: [MongooseModule.forFeature([
+	{ name: 'User', schema: UserSchema },
+	{ name: 'EmailVerification', schema: EmailVerificationSchema },
+	{ name: 'ForgottenPassword', schema: ForgottenPasswordSchema },
+	{ name: 'ConsentRegistry', schema: ConsentRegistrySchema }
+  ])],
+  controllers: [AuthController],
+  providers: [AuthService, UsersService, JWTService, JwtStrategy],
 })
-export class AuthModule {}
+export class AuthModule implements NestModule {
+  public configure(consumer: MiddlewareConsumer) {
+		consumer
+		.apply(LoggerMiddleware)
+		// .exclude(
+		//   { path: 'example', method: RequestMethod.GET },
+		// )
+		.forRoutes(AuthController);
+   }
+}
