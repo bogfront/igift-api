@@ -37,7 +37,7 @@ async function bootstrap() {
   /******/
   
   /* DEV Settings */
-  app.setGlobalPrefix('api');
+  // app.setGlobalPrefix('api');
   app.enableCors();
   /******/
   
