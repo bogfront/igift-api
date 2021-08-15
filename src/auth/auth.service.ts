@@ -136,7 +136,7 @@ export class AuthService {
           subject: 'Verify Email',
           text: 'Verify Email',
           html: 'Hi! <br><br> Thanks for your registration<br><br>'+
-          '<a href='+ config.host.url + ':' + config.host.port +'/auth/email/verify/'+ model.emailToken + '>Click here to activate your account</a>'  // html body
+          '<a href='+ config.host.url + ':' + config.host.port +'/auth/verify/'+ model.emailToken + '>Click here to activate your account</a>'  // html body
         };
 
         const sent = await new Promise<boolean>(async function(resolve, reject) {
