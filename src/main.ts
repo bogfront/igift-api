@@ -38,7 +38,7 @@ async function bootstrap() {
   
   /* DEV Settings */
   // app.setGlobalPrefix('api');
-  app.enableCors();
+  // app.enableCors();
   /******/
   
   await app.listen(8383);
