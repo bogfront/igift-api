@@ -45,4 +45,11 @@ export class OrderService {
 		
 		return orderFromDB;
 	}
+	
+	async getUserOrders (userId: string): Promise<Order[]> {
+		const ordersFromDB = await this.orderModel.find({ ownerId: userId });
+		if(!ordersFromDB) throw new HttpException('COMMON.ORDER_NOT_FOUND', HttpStatus.NOT_FOUND);
+		
+		return ordersFromDB;
+	}
 }

@@ -61,4 +61,16 @@ export class OrderController {
 			return new ResponseError('ORDER.GET-ORDER_ERROR', error);
 		}
 	}
+	
+	@Get('orders/:userId')
+	@UseGuards(AuthGuard('jwt'))
+	@Roles('User')
+	async getUserOrder (@Param() params) {
+		try {
+			const orders = await this.orderService.getUserOrders(params.userId);
+			return new ResponseSuccess('ORDER.GET-USER-ORDERS_SUCCESS', orders);
+		} catch (error) {
+			return new ResponseError('ORDER.GET-USER-ORDERS_ERROR', error);
+		}
+	}
 }
