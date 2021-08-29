@@ -18,8 +18,8 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
 
   /* SECURITY */
-  // app.enable('trust proxy');
-  // app.use(helmet());
+  app.enable('trust proxy');
+  app.use(helmet());
 
   app.use(rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes

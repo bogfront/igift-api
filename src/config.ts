@@ -3,7 +3,7 @@ export default {
     'db': {
         'user': 'admin',
         'pass': 'admin',
-        'host': '194.58.111.245',
+        'host': '0.0.0.0',
         'port': '27017',
         'database': 'iGiftMongo',
         'authSource': 'admin'

@@ -31,6 +31,8 @@
     "@nestjs/schedule": "^0.4.3",
     "@nestjs/serve-static": "^2.1.4",
     "@typegoose/typegoose": "^7.4.8",
+    "@types/cheerio": "^0.22.30",
+    "@types/node-fetch": "^2.5.12",
     "app-root-path": "^3.0.0",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.4.0",

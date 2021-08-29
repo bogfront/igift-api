@@ -64,7 +64,7 @@ export class UsersService {
 
   async updateProfile(profileDto: ProfileDto): Promise<User> {
     const userFromDb = await this.userModel.findOne({ email: profileDto.email});
-    if(!userFromDb) throw new HttpException('COMMON.USER_NOT_FOUND', HttpStatus.NOT_FOUND);
+      if(!userFromDb) throw new HttpException('COMMON.USER_NOT_FOUND', HttpStatus.NOT_FOUND);
 
     if(profileDto.name) userFromDb.name = profileDto.name;
     if(profileDto.surname) userFromDb.surname = profileDto.surname;
