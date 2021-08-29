@@ -8,6 +8,7 @@ import {default as config} from './config';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { WrapModule } from './wrap/wrap.module';
+import { ReceiverModule } from './receiver/receiver.module';
 
 const userString = config.db.user && config.db.pass ? (config.db.user + ':' + config.db.pass + '@') : '';
 const authSource = config.db.authSource ? ('?authSource='+config.db.authSource + '&w=1') : '' ;
@@ -19,7 +20,8 @@ const authSource = config.db.authSource ? ('?authSource='+config.db.authSource +
 		AuthModule,
 		ProductModule,
 		OrderModule,
-		WrapModule
+		WrapModule,
+		ReceiverModule
 	],
 
 	controllers: [AppController],
