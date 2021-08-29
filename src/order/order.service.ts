@@ -38,4 +38,11 @@ export class OrderService {
 		orderFromDB.status = status;
 		return await orderFromDB.save();
 	}
+	
+	async getOrder (orderId: string): Promise<Order> {
+		const orderFromDB = await this.orderModel.findById(orderId);
+		if(!orderFromDB) throw new HttpException('COMMON.ORDER_NOT_FOUND', HttpStatus.NOT_FOUND);
+		
+		return orderFromDB;
+	}
 }

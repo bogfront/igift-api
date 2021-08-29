@@ -44,9 +44,21 @@ export class OrderController {
 	async changeStatus (@Param() params) {
 		try {
 			const updatedOrder = await this.orderService.changeStatus(params.orderId, params.status);
-			return new ResponseSuccess('ORDER.COMMENT_SUCCESS', updatedOrder);
+			return new ResponseSuccess('ORDER.CHANGE-STATUS_SUCCESS', updatedOrder);
 		} catch (error) {
-			return new ResponseError('ORDER.COMMENT_ERROR', error);
+			return new ResponseError('ORDER.CHANGE-STATUS_ERROR', error);
+		}
+	}
+	
+	@Get('/:orderId')
+	@UseGuards(AuthGuard('jwt'))
+	@Roles('User')
+	async getOrder (@Param() params) {
+		try {
+			const order = await this.orderService.getOrder(params.orderId);
+			return new ResponseSuccess('ORDER.GET-ORDER_SUCCESS', order);
+		} catch (error) {
+			return new ResponseError('ORDER.GET-ORDER_ERROR', error);
 		}
 	}
 }
