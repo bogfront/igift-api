@@ -1,4 +1,4 @@
-import { Post, UseGuards, Body } from '@nestjs/common';
+import { Post, Get, UseGuards, Body, Param } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -32,6 +32,18 @@ export class OrderController {
 	async commentOrder (@Body() commentOrderDto: CommentOrderDto) {
 		try {
 			const updatedOrder = await this.orderService.commentOrder(commentOrderDto);
+			return new ResponseSuccess('ORDER.COMMENT_SUCCESS', updatedOrder);
+		} catch (error) {
+			return new ResponseError('ORDER.COMMENT_ERROR', error);
+		}
+	}
+	
+	@Get('/:orderId/status/:status')
+	@UseGuards(AuthGuard('jwt'))
+	@Roles('User')
+	async changeStatus (@Param() params) {
+		try {
+			const updatedOrder = await this.orderService.changeStatus(params.orderId, params.status);
 			return new ResponseSuccess('ORDER.COMMENT_SUCCESS', updatedOrder);
 		} catch (error) {
 			return new ResponseError('ORDER.COMMENT_ERROR', error);

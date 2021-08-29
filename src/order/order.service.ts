@@ -26,4 +26,16 @@ export class OrderService {
 		orderFromDB.comment = commentOrderDto.comment;
 		return await orderFromDB.save();
 	}
+	
+	async changeStatus (orderId: string, status): Promise<Order> {
+		if (!Object.values(OrderStatusesConstants).includes(status)) {
+			throw new HttpException('ORDER.STATUS_NOT_FOUND', HttpStatus.NOT_FOUND);
+		}
+		
+		const orderFromDB = await this.orderModel.findById(orderId);
+		if(!orderFromDB) throw new HttpException('COMMON.ORDER_NOT_FOUND', HttpStatus.NOT_FOUND);
+		
+		orderFromDB.status = status;
+		return await orderFromDB.save();
+	}
 }
