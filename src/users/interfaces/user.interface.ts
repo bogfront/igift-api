@@ -20,6 +20,7 @@ export interface User extends Document{
     }
   },
   settings: {
+    offGiftsReminder?: boolean
   },
   photos: {
     profilePic: Photo;

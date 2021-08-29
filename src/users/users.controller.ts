@@ -89,5 +89,4 @@ export class UsersController {
       return new ResponseError('SETTINGS.UPDATE_ERROR', error);
     }
   }
-
 }

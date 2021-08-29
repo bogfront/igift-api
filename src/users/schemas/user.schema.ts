@@ -22,6 +22,7 @@ export const UserSchema = new mongoose.Schema({
     }
   },
   settings: {
+    offGiftsReminder: Boolean
   },
   photos: {
     profilePic: {}, //{ type:  mongoose.Schema.Types.ObjectId , ref: 'PhotoSchema'}

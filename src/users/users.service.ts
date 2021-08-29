@@ -170,7 +170,7 @@ export class UsersService {
 
     userFromDb.settings = userFromDb.settings || {};
     for (const key in settingsDto) {
-      if (settingsDto.hasOwnProperty(key) && key != 'email') {
+      if (settingsDto.hasOwnProperty(key) && key !== 'email') {
         userFromDb.settings[key] = settingsDto[key];
       }
     }
