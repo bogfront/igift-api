@@ -62,12 +62,12 @@ export class OrderController {
 		}
 	}
 	
-	@Get('orders/:userId')
+	@Get('orders/:userId/status/:status')
 	@UseGuards(AuthGuard('jwt'))
 	@Roles('User')
-	async getUserOrder (@Param() params) {
+	async getUserOrdersByStatus (@Param() params) {
 		try {
-			const orders = await this.orderService.getUserOrders(params.userId);
+			const orders = await this.orderService.getUserOrders(params.userId, { status: params.status });
 			return new ResponseSuccess('ORDER.GET-USER-ORDERS_SUCCESS', orders);
 		} catch (error) {
 			return new ResponseError('ORDER.GET-USER-ORDERS_ERROR', error);
