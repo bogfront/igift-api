@@ -11,9 +11,11 @@ export class OrderService {
 	constructor(@InjectModel('Order') private readonly orderModel: Model<Order>) {}
 	
 	async createOrder (createOrderDto: CreateOrderDto): Promise<Order> {
+		const number = await this.orderModel.count({});
 		const createdOrder = new this.orderModel({
 			...createOrderDto,
-			status: OrderStatusesConstants.DRAFT
+			status: OrderStatusesConstants.DRAFT,
+			number
 		})
 		
 		return await createdOrder.save();
@@ -24,6 +26,7 @@ export class OrderService {
 		if(!orderFromDB) throw new HttpException('COMMON.ORDER_NOT_FOUND', HttpStatus.NOT_FOUND);
 		
 		orderFromDB.comment = commentOrderDto.comment;
+		orderFromDB.receiver = commentOrderDto.receiver;
 		return await orderFromDB.save();
 	}
 	

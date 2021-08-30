@@ -1,5 +1,6 @@
+import { Product } from '../../product/interfaces/product.interface';
 
 export class CreateOrderDto {
 	ownerId: string;
-	products_ids: string[];
+	products: Product[];
 }

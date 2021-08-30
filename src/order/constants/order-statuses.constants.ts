@@ -1,5 +1,6 @@
 
 export enum OrderStatusesConstants {
 	DRAFT = 'draft',
-	PAID = 'paid'
+	PAID = 'paid',
+	CREATED = 'created'
 }

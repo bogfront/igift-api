@@ -3,6 +3,7 @@ import { PhotoDto } from '../../common/dto/photo.dto';
 
 export class UserDto {
   constructor(object: any) {
+    this.id = object._id;
     this.name = object.name;
     this.surname = object.surname;
     this.email = object.email;
@@ -18,6 +19,7 @@ export class UserDto {
       });
     }
   };
+  readonly id: string;
   readonly name: string;
   readonly surname: string;
   readonly email: string;

@@ -7,6 +7,7 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { ResponseError, ResponseSuccess } from '../common/dto/response.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { CommentOrderDto } from './dto/comment-order.dto';
+import { OrderFiltersConstants } from './constants/order-filters.constants';
 
 
 @Controller('order')
@@ -62,12 +63,17 @@ export class OrderController {
 		}
 	}
 	
-	@Get('orders/:userId/status/:status')
+	@Get('orders/:userId/:status?')
 	@UseGuards(AuthGuard('jwt'))
 	@Roles('User')
 	async getUserOrdersByStatus (@Param() params) {
 		try {
-			const orders = await this.orderService.getUserOrders(params.userId, { status: params.status });
+			const filters: OrderFiltersConstants = {};
+			if (params.status) {
+				filters.status = params.status;
+			}
+			
+			const orders = await this.orderService.getUserOrders(params.userId, filters);
 			return new ResponseSuccess('ORDER.GET-USER-ORDERS_SUCCESS', orders);
 		} catch (error) {
 			return new ResponseError('ORDER.GET-USER-ORDERS_ERROR', error);

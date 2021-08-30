@@ -18,7 +18,7 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { LoggingInterceptor } from '../common/interceptors/logging.interceptor';
 import { TransformInterceptor } from '../common/interceptors/transform.interceptor';
-import { AuthGuard } from '../../node_modules/@nestjs/passport';
+import { AuthGuard } from '@nestjs/passport';
 import { ProfileDto } from './dto/profile.dto';
 import { SettingsDto } from './dto/settings.dto';
 import { UpdateGalleryDto } from './dto/update-gallery.dto';
@@ -39,18 +39,6 @@ export class UsersController {
       return new ResponseSuccess('COMMON.SUCCESS', new UserDto(user));
     } catch(error){
       return new ResponseError('COMMON.ERROR.GENERIC_ERROR', error);
-    }
-  }
-  
-  @Get('profile')
-  @UseGuards(RolesGuard)
-  @Roles('User')
-  async getProfile(@Request() request): Promise<IResponse> {
-    try {
-      const user = await this.usersService.findByEmail(request.email);
-      return new ResponseSuccess('PROFILE.UPDATE_SUCCESS', new UserDto(user));
-    } catch (error) {
-      return new ResponseError('PROFILE.GET_PROFILE', error);
     }
   }
 
