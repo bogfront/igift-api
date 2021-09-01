@@ -24,7 +24,7 @@ export class AuthService {
   async validateLogin(email, password) {
     const userFromDb = await this.userModel.findOne({ email});
     if(!userFromDb) throw new HttpException('LOGIN.USER_NOT_FOUND', HttpStatus.NOT_FOUND);
-    if(!userFromDb.auth.email.valid) throw new HttpException('LOGIN.EMAIL_NOT_VERIFIED', HttpStatus.FORBIDDEN);
+    // if(!userFromDb.auth.email.valid) throw new HttpException('LOGIN.EMAIL_NOT_VERIFIED', HttpStatus.FORBIDDEN);
 
     const isValidPass = await bcrypt.compare(password, userFromDb.password);
 
